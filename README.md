@@ -3,7 +3,7 @@ Ein OneClick Reparatur Programm das Windows Dateien und Installierte Dateien Üb
 
 An diesem Programm wird weitergearbeitet und neue verbesserte Versionen werden weiter erscheinen.
 
-README – OneClick-Komplettreparatur für PowerShell 7
+README – OneClick-Komplettreparatur zum starten für PowerShell 7
 ==========================================================
 
 Programmversion: 5.1
