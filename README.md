@@ -1,4 +1,4 @@
-# OneClick-Komplettreparatur-PowerShell7
+# OneClick-Komplettreparatur für Windows 10/11
 Ein OneClick Reparatur Programm das Windows Dateien und Installierte Dateien Überprüft und repariert/Updatet. 
 
 README – OneClick-Komplettreparatur für PowerShell 7
