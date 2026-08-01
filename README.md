@@ -238,4 +238,6 @@ Nachkontroll-, Isolierungs- und Abbruchmechanismen können beschädigte
 Windows-Installationen, Drittanbieter-Installer, Sicherheitssoftware,
 Netzwerkausfälle oder herstellerspezifische Besonderheiten zu unvollständigen
 Reparaturen führen. Prüfen Sie immer die erzeugten Abschlussberichte.
+----------------------------------------------------------------------------
+
 <img width="3839" height="2069" alt="Beispiel 1" src="https://github.com/user-attachments/assets/dc41a2c5-adfe-4481-930b-7217ddc518c4" />
