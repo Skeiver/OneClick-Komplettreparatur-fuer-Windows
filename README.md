@@ -228,7 +228,7 @@ Dateigröße des ursprünglichen Skripts: 728686 Bytes
 SHA-256 des ursprünglichen Skripts:
   C6ED1392CC08D7757359725AE0ED29F9AC5C1AB37EC7D6244957C8AEC5B37D86
 
-Die Datei "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0-NEU.txt" ist eine bytegenaue Kopie des bereitgestellten
+Die Datei "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt" ist eine bytegenaue Kopie des bereitgestellten
 PowerShell-Skripts. Nur Dateiname und Dateiendung unterscheiden sich.
 
 13. HAFTUNGSHINWEIS
@@ -238,6 +238,7 @@ Nachkontroll-, Isolierungs- und Abbruchmechanismen können beschädigte
 Windows-Installationen, Drittanbieter-Installer, Sicherheitssoftware,
 Netzwerkausfälle oder herstellerspezifische Besonderheiten zu unvollständigen
 Reparaturen führen. Prüfen Sie immer die erzeugten Abschlussberichte.
+
 ----------------------------------------------------------------------------
 
 <img width="3839" height="2069" alt="Beispiel 1" src="https://github.com/user-attachments/assets/dc41a2c5-adfe-4481-930b-7217ddc518c4" />
