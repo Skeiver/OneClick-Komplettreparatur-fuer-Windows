@@ -8,7 +8,8 @@ Wichtige vorabinfo: Nach Durchlauf des Programmes, werden Protokolle in OneClick
 Für Programmierer: Programcode ist in "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt" gespeichert und kann heruntergeladen und weiterverwendende werden :)
 
 An diesem Programm wird weitergearbeitet und neue verbesserte Versionen werden weiter erscheinen.
--------------------------------------------------------------------------------------------------------------------
+
+--------------------------
 
 Windows kann heruntergeladene PowerShell-Dateien aus Sicherheitsgründen blockieren.
 
