@@ -1,7 +1,9 @@
 # OneClick-Komplettreparatur für Windows 10/11
 Ein OneClick Reparatur Programm das Windows Dateien und Installierte Dateien/Programme überprüft, beschädigte Programme repariert/neuinstalliert und Updatet.
 
+
 Die erste Release Version ist jetzt erschienen, Version 1.0.0 wurde mehrfach getestet und auf Fehler überprüft. 
+
 
 Wichtige vorab-Info: Nach Durchlauf des Programmes, werden Protokolle z.B. Abschlussberichte in OneClick-Komplettreparatur Ordner im Windows Dokumenten Ordner gespeichert. (Siehe README)
 
