@@ -8,6 +8,30 @@ Wichtige vorabinfo: Nach Durchlauf des Programmes, werden Protokolle in OneClick
 Für Programmierer: Programcode ist in "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt" gespeichert und kann heruntergeladen und weiterverwendende werden :)
 
 An diesem Programm wird weitergearbeitet und neue verbesserte Versionen werden weiter erscheinen.
+============================================================================================================
+
+Windows kann heruntergeladene PowerShell-Dateien aus Sicherheitsgründen blockieren.
+
+Gehen Sie vor dem ersten Start folgendermaßen vor:
+
+Klicken Sie mit der rechten Maustaste auf
+„OneClick-Komplettreparatur-Release-v1.0.0.ps1“.
+
+Wählen Sie „Eigenschaften“.
+
+Öffnen Sie den Reiter „Allgemein“.
+
+Suchen Sie unten den Bereich „Sicherheit“.
+
+Aktivieren Sie „Zulassen“.
+
+Klicken Sie auf „Übernehmen“.
+
+Klicken Sie anschließend auf „OK“.
+
+Wird „Zulassen“ nicht angezeigt, ist die Datei bereits entsperrt oder wurde von
+Windows nicht blockiert.
+============================================================================================================
 
 OneClick-Komplettreparatur – README
 ====================================
