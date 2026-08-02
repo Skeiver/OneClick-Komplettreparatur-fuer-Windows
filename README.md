@@ -13,7 +13,7 @@ OneClick-Komplettreparatur – README
 Produkt: OneClick-Komplettreparatur-Release-v1.0.0
 Version: 1.0.0
 Programmstand: 01.08.2026
-Ausgangsdatei: OneClick-Komplettreparatur-Release-v1.0.0(4).ps1
+Ausgangsdatei: OneClick-Komplettreparatur-Release-v1.0.0.ps1
 
 1. PROGRAMMBESCHREIBUNG
 -----------------------
