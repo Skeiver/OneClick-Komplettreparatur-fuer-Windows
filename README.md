@@ -32,7 +32,8 @@ Klicken Sie anschließend auf „OK“.
 
 Wird „Zulassen“ nicht angezeigt, ist die Datei bereits entsperrt oder wurde von
 Windows nicht blockiert.
-============================================================================================================
+
+--------------------------
 
 OneClick-Komplettreparatur – README
 ====================================
