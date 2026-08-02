@@ -197,7 +197,7 @@ Lösung:
 - Prüfen Sie in den Dateieigenschaften, ob Windows die Datei blockiert.
 - Starten Sie die Datei testweise über:
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0(4).ps1"
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
 
 Problem: Eine Installation scheint zu hängen.
 Lösung:
@@ -241,6 +241,6 @@ Windows-Installationen, Drittanbieter-Installer, Sicherheitssoftware,
 Netzwerkausfälle oder herstellerspezifische Besonderheiten zu unvollständigen
 Reparaturen führen. Prüfen Sie immer die erzeugten Abschlussberichte.
 
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
 
 <img width="3839" height="2069" alt="Beispiel 1" src="https://github.com/user-attachments/assets/dc41a2c5-adfe-4481-930b-7217ddc518c4" />
