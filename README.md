@@ -80,11 +80,11 @@ die vorgesehenen verifizierten Quellen bereitgestellt oder repariert.
 
 Alternativer Start aus einer PowerShell-Konsole:
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0(4).ps1"
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
 
 Unbeaufsichtigter Start ohne abschließende Tasteneingabe:
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0(4).ps1" -KeinePause
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1" -KeinePause
 
 Die Option "-ExecutionPolicy Bypass" gilt nur für den gestarteten
 PowerShell-Prozess und verändert nicht dauerhaft die Windows-Richtlinie.
