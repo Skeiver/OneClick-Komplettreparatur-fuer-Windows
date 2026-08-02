@@ -3,7 +3,7 @@ Ein OneClick Reparatur Programm das Windows Dateien und Installierte Dateien/Pro
 
 Die erste Release Version ist jetzt erschienen, Version 1.0.0 wurde mehrfach getestet und auf Fehler überprüft. 
 
-Wichtige vorab-Info: Nach durchlauf des Programmes, werden Protokolle z.B. Abschlussberichte in OneClick-Komplettreparatur Ordner im Windows Dokumenten Ordner gespeichert. (Siehe README)
+Wichtige vorab-Info: Nach Durchlauf des Programmes, werden Protokolle z.B. Abschlussberichte in OneClick-Komplettreparatur Ordner im Windows Dokumenten Ordner gespeichert. (Siehe README)
 Sollte bei einem Neustartet des Programmes Fehler auftreten oder das Programm nicht sauber durchlaufen, löschen Sie die OneClick-Komplettreparatur Ordner in Windows Dokumente. 
 
 
