@@ -26,7 +26,7 @@
 > Falls nach einem Neustart Fortsetzungsfehler auftreten oder das Programm nicht sauber durchläuft, können die von OneClick-Komplettreparatur angelegten Laufzeitordner im Windows-Dokumenteordner gelöscht werden. Starten Sie das Programm anschließend erneut.
 
 > [!TIP]
-> **Für Programmierer:** Der vollständige Programmcode ist in der Datei `Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt` enthalten und kann heruntergeladen sowie weiterverwendet werden.
+> **Für Programmierer:** Der vollständige Programmcode liegt direkt in der Datei `v1.0.0.ps1` im Repository vor und kann dort eingesehen oder heruntergeladen werden.
 
 <div align="center">
 
@@ -43,7 +43,7 @@
 | **Produkt** | `OneClick-Komplettreparatur-Release-v1.0.0` |
 | **Version** | `1.0.0` |
 | **Programmstand** | `01.08.2026` |
-| **Ausgangsdatei** | `OneClick-Komplettreparatur-Release-v1.0.0.ps1` |
+| **Ausgangsdatei** | `v1.0.0.ps1` |
 
 ---
 
@@ -164,7 +164,7 @@ PowerShell 7 und WinGet werden durch das Programm geprüft und bei Bedarf über 
 
 Windows kann eine aus dem Internet heruntergeladene PowerShell-Datei blockieren. Führen Sie deshalb vor dem ersten Start folgende Schritte aus:
 
-1. Klicken Sie mit der rechten Maustaste auf `OneClick-Komplettreparatur-Release-v1.0.0.ps1`.
+1. Klicken Sie mit der rechten Maustaste auf `v1.0.0.ps1`.
 2. Wählen Sie **Eigenschaften**.
 3. Öffnen Sie den Reiter **Allgemein**.
 4. Suchen Sie unten im Fenster den Bereich **Sicherheit**.
@@ -201,7 +201,7 @@ Windows kann eine aus dem Internet heruntergeladene PowerShell-Datei blockieren.
 ### Alternativer Start über PowerShell
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1"
 ```
 
 ### Unbeaufsichtigter Start
@@ -209,7 +209,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettrepa
 Start ohne abschließende Tasteneingabe:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1" -KeinePause
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1" -KeinePause
 ```
 
 > [!NOTE]
@@ -393,7 +393,7 @@ Weitere interne Fehlercodes können bei frühen Start- oder Infrastrukturfehlern
 - Starten Sie die Datei testweise über:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1"
 ```
 
 </details>
@@ -457,15 +457,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettrepa
 | Eigenschaft | Wert |
 |:---|---:|
 | **Quelltextzeilen** | `11.432` |
-| **Dateigröße des ursprünglichen Skripts** | `728.686 Bytes` |
+| **Dateigröße des Skripts** | `724.142 Bytes` |
 
-### 🔏 SHA-256-Prüfsumme
-
-```text
-C6ED1392CC08D7757359725AE0ED29F9AC5C1AB37EC7D6244957C8AEC5B37D86
-```
-
-Die Datei `Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt` ist eine bytegenaue Kopie des bereitgestellten PowerShell-Skripts. Nur Dateiname und Dateiendung unterscheiden sich.
+Der vollständige Quellcode liegt direkt in `v1.0.0.ps1`. Die GitHub-Versionshistorie dokumentiert jede Änderung an dieser Datei nachvollziehbar.
 
 <div align="right">
 

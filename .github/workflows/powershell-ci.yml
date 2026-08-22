@@ -2,64 +2,121 @@ name: PowerShell CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   validate:
-    name: Validate PowerShell script
+    name: Validate PowerShell and repository references
     runs-on: windows-latest
+    timeout-minutes: 10
+
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Parse PowerShell script
+      - name: Parse all PowerShell scripts with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = @(Get-ChildItem -LiteralPath $PWD -Filter '*.ps1' -File -Recurse)
+          if ($files.Count -eq 0) {
+            throw 'No PowerShell scripts were found.'
+          }
+
+          $hasErrors = $false
+          foreach ($file in $files) {
+            $tokens = $null
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $file.FullName,
+              [ref]$tokens,
+              [ref]$parseErrors
+            )
+
+            foreach ($parseError in @($parseErrors)) {
+              $hasErrors = $true
+              Write-Host ("{0}:{1}:{2}: {3}" -f $file.FullName, $parseError.Extent.StartLineNumber, $parseError.Extent.StartColumnNumber, $parseError.Message)
+            }
+          }
+
+          if ($hasErrors) {
+            throw 'Windows PowerShell 5.1 syntax validation failed.'
+          }
+
+          Write-Host ("Successfully parsed {0} PowerShell script(s) with Windows PowerShell {1}." -f $files.Count, $PSVersionTable.PSVersion)
+
+      - name: Parse all PowerShell scripts with PowerShell 7
         shell: pwsh
         run: |
-          $path = Join-Path $PWD 'v1.0.0.ps1'
-          if (-not (Test-Path -LiteralPath $path)) {
-            throw "Expected script not found: $path"
+          $ErrorActionPreference = 'Stop'
+          $files = @(Get-ChildItem -LiteralPath $PWD -Filter '*.ps1' -File -Recurse)
+          if ($files.Count -eq 0) {
+            throw 'No PowerShell scripts were found.'
           }
 
-          $tokens = $null
-          $errors = $null
-          [void][System.Management.Automation.Language.Parser]::ParseFile(
-            $path,
-            [ref]$tokens,
-            [ref]$errors
-          )
+          $hasErrors = $false
+          foreach ($file in $files) {
+            $tokens = $null
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $file.FullName,
+              [ref]$tokens,
+              [ref]$parseErrors
+            )
 
-          if ($errors.Count -gt 0) {
-            $errors | ForEach-Object {
-              Write-Error ("{0}:{1}:{2}: {3}" -f $_.Extent.File, $_.Extent.StartLineNumber, $_.Extent.StartColumnNumber, $_.Message)
+            foreach ($parseError in @($parseErrors)) {
+              $hasErrors = $true
+              Write-Host ("{0}:{1}:{2}: {3}" -f $file.FullName, $parseError.Extent.StartLineNumber, $parseError.Extent.StartColumnNumber, $parseError.Message)
             }
-            throw "PowerShell parser found $($errors.Count) error(s)."
           }
 
-          Write-Host 'PowerShell syntax validation passed.'
+          if ($hasErrors) {
+            throw 'PowerShell 7 syntax validation failed.'
+          }
+
+          Write-Host ("Successfully parsed {0} PowerShell script(s) with PowerShell {1}." -f $files.Count, $PSVersionTable.PSVersion)
 
       - name: Validate README file references
         shell: pwsh
         run: |
-          $readme = Get-Content -LiteralPath 'README.md' -Raw
-          $references = [regex]::Matches($readme, '`([^`]+\.(?:ps1|txt))`') |
-            ForEach-Object { $_.Groups[1].Value } |
-            Sort-Object -Unique
+          $ErrorActionPreference = 'Stop'
+          $readmePath = Join-Path $PWD 'README.md'
+          if (-not (Test-Path -LiteralPath $readmePath -PathType Leaf)) {
+            throw 'README.md was not found.'
+          }
 
-          $missing = foreach ($reference in $references) {
-            if (-not (Test-Path -LiteralPath $reference)) {
-              $reference
+          $readme = Get-Content -LiteralPath $readmePath -Raw
+          $references = @(
+            [regex]::Matches($readme, '`([^`]+\.(?:ps1|txt))`') |
+              ForEach-Object { $_.Groups[1].Value.Trim() } |
+              Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+              Sort-Object -Unique
+          )
+
+          $missing = New-Object 'System.Collections.Generic.List[string]'
+          foreach ($reference in $references) {
+            $candidate = $reference -replace '^[.]\\', ''
+            $candidate = $candidate -replace '/', [IO.Path]::DirectorySeparatorChar
+            $candidate = $candidate -replace '\\', [IO.Path]::DirectorySeparatorChar
+            $fullPath = Join-Path $PWD $candidate
+
+            if (-not (Test-Path -LiteralPath $fullPath -PathType Leaf)) {
+              $missing.Add($reference) | Out-Null
             }
           }
 
-          if ($missing) {
+          if ($missing.Count -gt 0) {
             Write-Host 'README references files that are not present in the repository:'
             $missing | ForEach-Object { Write-Host " - $_" }
             throw 'README file reference validation failed.'
           }
 
-          Write-Host 'README file reference validation passed.'
+          Write-Host ("README file reference validation passed for {0} referenced file(s)." -f $references.Count)
