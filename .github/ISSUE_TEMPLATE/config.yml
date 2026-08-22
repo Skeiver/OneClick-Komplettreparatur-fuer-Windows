@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support und Fragen
+    url: https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/discussions
+    about: Für Bedienungsfragen, allgemeine Hilfe und Erfahrungsaustausch bitte die GitHub Discussions verwenden.
+  - name: Sicherheitsrichtlinie
+    url: https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/security/policy
+    about: Sicherheitslücken nicht öffentlich als normalen Fehlerbericht veröffentlichen.
