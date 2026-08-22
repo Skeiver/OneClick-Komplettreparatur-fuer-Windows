@@ -1,0 +1,46 @@
+name: Verbesserungsvorschlag
+description: Schlage eine nachvollziehbare Verbesserung oder neue Funktion vor.
+title: "[Verbesserung]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Beschreibe den Nutzen möglichst konkret. Änderungen an sicherheitskritischen Reparaturabläufen sollten zusätzlich Risiken und Rückfallmöglichkeiten nennen.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Ausgangsproblem
+      description: Welches Problem oder welcher unnötige Aufwand soll gelöst werden?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Vorgeschlagene Lösung
+      description: Wie sollte sich die OneClick-Komplettreparatur stattdessen verhalten?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativen
+      description: Welche anderen Lösungen oder Workarounds wurden bereits betrachtet?
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risiken und Kompatibilität
+      description: Gibt es mögliche Auswirkungen auf Windows-Versionen, Administratorrechte, WinGet, PowerShell oder installierte Programme?
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Bestätigung
+      options:
+        - label: Ich habe geprüft, ob bereits ein ähnlicher Vorschlag existiert.
+          required: true
+        - label: Der Vorschlag gehört zur OneClick-Komplettreparatur und nicht zu einem separaten Projekt.
+          required: true
