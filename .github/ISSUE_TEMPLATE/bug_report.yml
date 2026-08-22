@@ -1,0 +1,82 @@
+name: Fehlerbericht
+description: Melde einen reproduzierbaren Fehler der OneClick-Komplettreparatur.
+title: "[Fehler]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für den Fehlerbericht. Bitte keine Kennwörter, Tokens, persönlichen Daten oder vollständigen sensiblen Protokolle veröffentlichen.
+        Sicherheitslücken bitte nicht als öffentlichen Fehlerbericht melden. Verwende dafür die Sicherheitsrichtlinie des Repositorys.
+
+  - type: input
+    id: script_version
+    attributes:
+      label: Script-Version
+      description: Welche Version wurde ausgeführt?
+      placeholder: "z. B. 1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: windows_version
+    attributes:
+      label: Windows-Version und Build
+      description: Gib Windows-Version, Edition und Build an.
+      placeholder: "z. B. Windows 11 Pro 24H2, Build 26100.x"
+    validations:
+      required: true
+
+  - type: input
+    id: powershell_version
+    attributes:
+      label: PowerShell-Version
+      description: Gib die verwendete Windows-PowerShell-/PowerShell-Version an, soweit bekannt.
+      placeholder: "z. B. Windows PowerShell 5.1 / PowerShell 7.4.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Fehlerbeschreibung
+      description: Beschreibe präzise, was passiert ist und was stattdessen erwartet wurde.
+      placeholder: "Tatsächliches Verhalten, erwartetes Verhalten und betroffener Programmschritt"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: Nenne die kleinste bekannte Abfolge, mit der der Fehler erneut auftritt.
+      placeholder: |
+        1. Script als Administrator starten
+        2. ...
+        3. Fehler tritt auf
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevante Protokollauszüge
+      description: Füge nur die für den Fehler relevanten, zuvor anonymisierten Zeilen ein.
+      render: text
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Zusätzliche Informationen
+      description: Weitere Hinweise, Screenshots oder Besonderheiten des Systems.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Bestätigung
+      options:
+        - label: Ich habe geprüft, ob bereits ein passender Fehlerbericht existiert.
+          required: true
+        - label: Ich habe persönliche oder sicherheitsrelevante Daten aus Protokollen entfernt.
+          required: true
+        - label: Dies ist keine vertrauliche Sicherheitslücke.
+          required: true
