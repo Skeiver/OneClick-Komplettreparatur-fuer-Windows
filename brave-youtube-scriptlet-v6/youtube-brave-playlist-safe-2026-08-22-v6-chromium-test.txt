@@ -1,0 +1,43 @@
+YouTube Brave Playlist Safe v6 - Chromium Runtime Test
+======================================================
+Datum: 2026-08-22
+Scriptlet: youtube-brave-playlist-safe-2026-08-22-v6
+Chromium: 144.0.7559.96 (Headless, DevTools/CDP)
+Ergebnis: 21/21 PASS
+
+Getestete Punkte:
+1. Scriptlet geladen
+2. network_machine Flags gezielt deaktiviert
+3. Fetch-Hook installiert
+4. XHR-Hook installiert
+5. Promise.prototype.then bleibt unverändert
+6. Map.prototype.has bleibt unverändert
+7. MutationObserver ist auf #page-manager begrenzt
+8. Normale Wiedergabe löst kein loadVideoById() aus
+9. Versteckter/staler Anti-Adblock-DOM-Knoten wird ignoriert
+10. Playlist-SPA-Navigation löst keine falsche Recovery aus
+11. Video-ID wird beim Playlist-Wechsel sauber aktualisiert
+12. Sichtbare Anti-Adblock-Fläche bei laufender Wiedergabe wird nur ausgeblendet
+13. Dabei wird der Player nicht neu geladen
+14. Sichtbare echte Sperre bei inaktiver Wiedergabe löst genau eine Recovery aus
+15. Erster Recovery-Marker: lactmilli
+16. Player-Request erhält params=8AUB
+17. lactMilliseconds wird gesetzt
+18. Referer erhält #reloadxhr
+19. Nicht-Player-Fetch bleibt unverändert
+20. UNPLAYABLE-Server-Contract löst Recovery erst nach Navigations-Schutzzeit aus
+21. SSAP-Ad-Pfad wird gezielt übersprungen und dedupliziert
+
+Wichtige Architekturänderungen gegenüber v5:
+- Keine globalen Promise.prototype.then-Hooks
+- Keine globalen Map.prototype.has-Hooks
+- Kein characterData-Observer über das gesamte document
+- Observer nur auf #page-manager / Watch-Bereich
+- Anti-Adblock-DOM wird nur berücksichtigt, wenn der Knoten tatsächlich sichtbar ist
+- Navigationsschutz während yt-navigate-start/finish und 1600 ms Grace-Period
+- Normale Playlist-/SPA-Navigation darf niemals Recovery auslösen
+- Fetch/XHR-Rewrite nur auf /youtubei/v1/player bzw. /player und nur wenn ein Recovery-Marker aktiv ist
+- Kein Response-Pruning und keine globale Response/JSON.parse-Manipulation
+
+Validated local artifact SHA-256:
+bed1fdc8ed409dcecdf996441563302951e468e82115fd4f43536c4c289841cf
