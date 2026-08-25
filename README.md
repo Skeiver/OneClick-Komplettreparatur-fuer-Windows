@@ -1,72 +1,161 @@
-# OneClick-Komplettreparatur für Windows 10/11
-Ein OneClick Reparatur Programm das Windows Dateien und Installierte Dateien/Programme überprüft, beschädigte Programme repariert/neuinstalliert und Updatet.
+<a id="oneclick-komplettreparatur"></a>
 
-Die erste Release Version ist jetzt erschienen, Version 1.0.0 wurde mehrfach getestet und auf Fehler überprüft. 
+<div align="center">
 
-Wichtige vorabinfo: Nach Durchlauf des Programmes, werden Protokolle in OneClick-Komplettreparatur Ordner in Windows Dokumenten Ordner gespeichert (Siehe README). Sollte bei einem Neustartet des Programmes Fehler auftreten oder das Programm nicht sauber durchlaufen, löschen Sie die OneClick-Komplettreparatur Ordner in Windows Dokumente.
+# 🛠️ OneClick-Komplettreparatur
 
-Für Programmierer: Programcode ist in "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt" gespeichert und kann heruntergeladen und weiterverwendende werden :)
+### Automatisierte Prüfung, Aktualisierung und Reparatur von Windows und installierten Programmen
 
-An diesem Programm wird weitergearbeitet und neue verbesserte Versionen werden weiter erscheinen.
+[![Repository- und PowerShell-Prüfung](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/actions/workflows/powershell-ci.yml/badge.svg?branch=OneClick-Komplettreparatur)](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/actions/workflows/powershell-ci.yml) [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
---------------------------
+<img width="100%" alt="OneClick-Komplettreparatur – Programmoberfläche" src="https://github.com/user-attachments/assets/b49f55b5-7575-46d1-b446-495dcf38fb0d" />
 
-Windows kann heruntergeladene PowerShell-Dateien aus Sicherheitsgründen blockieren.
-====================================
+[⬇️ **Version 1.0.0 herunterladen**](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases/download/repair-tool-v.1.0.0/OneClick-Komplettreparatur-Release-v1.0.0.ps1) · [📦 Releases](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases) · [🔎 Quellcode](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/blob/OneClick-Komplettreparatur/v1.0.0.ps1) · [🐞 Issues](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/issues/new/choose) · [💬 Discussions](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/discussions) · [🔐 Security](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/security/policy)
 
-Gehen Sie vor dem ersten Start folgendermaßen vor:
+[📖 Beschreibung](#programmbeschreibung) · [✨ Funktionen](#hauptfunktionen) · [▶️ Start](#empfohlener-start) · [🧰 Fehlerbehebung](#fehlerbehebung) · [📝 Changelog](CHANGELOG.md) · [⚖️ Lizenz](LICENSE) · [🧾 Attribution](NOTICE) · [🤝 Mitwirken](.github/CONTRIBUTING.md) · [🆘 Support](.github/SUPPORT.md)
 
-Klicken Sie mit der rechten Maustaste auf
-„OneClick-Komplettreparatur-Release-v1.0.0.ps1“.
+</div>
 
-Wählen Sie „Eigenschaften“.
+---
 
-Öffnen Sie den Reiter „Allgemein“.
+> [!IMPORTANT]
+> **Release 1.0.0 ist ein unveränderlicher Release-Snapshot.** Der vollständige PowerShell-Quellcode ist öffentlich einsehbar und darf gemäß Apache License 2.0 untersucht, geforkt, verändert und weiterentwickelt werden. Änderungen am offiziellen Projekt erscheinen als neue Version, damit der zu Release 1.0.0 gehörende Quellstand jederzeit nachvollziehbar bleibt.
 
-Suchen Sie unten den Bereich „Sicherheit“.
+> [!WARNING]
+> Das Programm verändert Windows-Komponenten und installierte Programme. Sichern Sie wichtige persönliche Daten und lesen Sie vor der Ausführung die [Sicherheitshinweise](#sicherheitshinweise).
 
-Aktivieren Sie „Zulassen“.
+> [!NOTE]
+> Nach dem Programmlauf werden Protokolle und Berichte im Windows-Dokumenteordner gespeichert. Weitere Informationen finden Sie unter [Protokolle und Berichte](#protokolle-und-berichte).
 
-Klicken Sie auf „Übernehmen“.
+> [!TIP]
+> **Keine EXE/Blackbox:** OneClick-Komplettreparatur ist ein offen einsehbares PowerShell-Skript. Der vollständige Repository-Quellcode der veröffentlichten Version liegt in [`v1.0.0.ps1`](v1.0.0.ps1) und kann vor der Ausführung direkt auf GitHub geprüft werden. Die CI prüft den Code statisch und schützt ausschließlich den veröffentlichten 1.0.0-Snapshot vor unbeabsichtigten Änderungen; sie verhindert keine Forks oder Weiterentwicklungen.
 
-Klicken Sie anschließend auf „OK“.
+> [!NOTE]
+> Das Abzeichen **Repository- und PowerShell-Prüfung** zeigt den Status der automatischen GitHub-Prüfungen. Es kontrolliert Release-Schutz, Repository-Struktur, Lizenz/Attribution und PowerShell-Syntax. Es startet **keine** Reparaturen auf einem Benutzer-PC.
 
-Wird „Zulassen“ nicht angezeigt, ist die Datei bereits entsperrt oder wurde von
-Windows nicht blockiert.
+---
 
---------------------------
+<a id="vor-der-ausfuehrung-pruefen"></a>
 
-OneClick-Komplettreparatur – README
-====================================
+## 🔍 Vor der Ausführung prüfen
 
-Produkt: OneClick-Komplettreparatur-Release-v1.0.0
-Version: 1.0.0
-Programmstand: 01.08.2026
-Ausgangsdatei: OneClick-Komplettreparatur-Release-v1.0.0.ps1
+Da das Skript mit Administratorrechten arbeitet, wird empfohlen, **Herkunft, Quellcode und Dateihash vor dem Start selbst zu prüfen**.
 
-1. PROGRAMMBESCHREIBUNG
------------------------
-OneClick-Komplettreparatur ist ein PowerShell-Programm für Microsoft Windows.
-Es prüft die Windows-Systembasis, erfasst installierte Programme, sucht nach
-Aktualisierungen und führt unterstützte Reparaturen oder abgesicherte
-Neuinstallationen aus.
+1. Lesen Sie den vollständigen Quellcode direkt auf GitHub: [`v1.0.0.ps1`](v1.0.0.ps1).
+2. Laden Sie Version 1.0.0 ausschließlich über den [offiziellen GitHub-Release](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases/tag/repair-tool-v.1.0.0) oder den oben angegebenen Direktlink herunter.
+3. Prüfen Sie anschließend den SHA-256-Hash der heruntergeladenen **Release-Datei**:
 
-Benutzerbezogene Programme werden kontrolliert mit einem normalen Benutzertoken
-bearbeitet. Computerweit installierte Programme und die Hauptsteuerung laufen
-mit Administratorrechten.
+```powershell
+Get-FileHash ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1" -Algorithm SHA256
+```
 
-2. HAUPTFUNKTIONEN
-------------------
+Erwarteter SHA-256 für das veröffentlichte Release-Asset:
+
+```text
+c6ed1392cc08d7757359725ae0ed29f9ac5c1ab37ec7d6244957c8aec5b37d86
+```
+
+4. Führen Sie das Skript erst aus, wenn der Hash übereinstimmt und Sie den Quellcode beziehungsweise seine Herkunft ausreichend geprüft haben.
+
+> [!IMPORTANT]
+> Der SHA-256-Vergleich bestätigt, dass die heruntergeladene Datei dem veröffentlichten Release-Asset entspricht. Er ersetzt **keine** eigene Prüfung des PowerShell-Codes und ist keine allgemeine Sicherheitsgarantie.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+## 📋 Projektinformationen
+
+| Eigenschaft | Wert |
+|:---|:---|
+| **Produkt** | OneClick-Komplettreparatur-Release-v1.0.0 |
+| **Version** | `1.0.0` |
+| **Programmstand** | `01.08.2026` |
+| **Hauptdatei im Repository** | `v1.0.0.ps1` |
+| **Standardbranch** | `OneClick-Komplettreparatur` |
+| **Automatische Prüfung** | Release-Schutz + Repository-Struktur + Apache-2.0/NOTICE + Windows PowerShell 5.1 + PowerShell 7 |
+| **Betriebssystem** | Windows 10 / Windows 11 |
+| **Lizenz** | Apache License 2.0 |
+| **Release-Datei** | OneClick-Komplettreparatur-Release-v1.0.0.ps1 |
+| **SHA-256 des Release-Assets** | `c6ed1392cc08d7757359725ae0ed29f9ac5c1ab37ec7d6244957c8aec5b37d86` |
+
+### 🔗 GitHub-Projektbereiche
+
+| Bereich | Link |
+|:---|:---|
+| **Aktuelle Veröffentlichung** | [Release 1.0.0](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases/tag/repair-tool-v.1.0.0) |
+| **Direkter Download** | [Version 1.0.0 herunterladen](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases/download/repair-tool-v.1.0.0/OneClick-Komplettreparatur-Release-v1.0.0.ps1) |
+| **Quellcode** | [`v1.0.0.ps1`](v1.0.0.ps1) |
+| **Änderungsverlauf** | [CHANGELOG.md](CHANGELOG.md) |
+| **Lizenz** | [Apache License 2.0](LICENSE) |
+| **Attribution / Herkunft** | [NOTICE](NOTICE) |
+| **Fehler melden / Vorschläge** | [Issues](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/issues/new/choose) |
+| **Fragen / Austausch** | [Discussions](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/discussions) |
+| **Sicherheitsmeldungen** | [SECURITY.md](.github/SECURITY.md) |
+| **Support** | [SUPPORT.md](.github/SUPPORT.md) |
+| **Mitwirken** | [CONTRIBUTING.md](.github/CONTRIBUTING.md) |
+| **Verhaltensregeln** | [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md) |
+| **Automatische Prüfungen** | [Repository- und PowerShell-Prüfung](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/actions/workflows/powershell-ci.yml) |
+
+---
+
+## 📑 Inhaltsverzeichnis
+
+1. [Programmbeschreibung](#programmbeschreibung)
+2. [Hauptfunktionen](#hauptfunktionen)
+3. [Voraussetzungen](#voraussetzungen)
+4. [Vor der Ausführung prüfen](#vor-der-ausfuehrung-pruefen)
+5. [Datei vor dem ersten Start entsperren](#datei-vor-dem-ersten-start-entsperren)
+6. [Empfohlener Start](#empfohlener-start)
+7. [Ablauf des Programms](#ablauf-des-programms)
+8. [Protokolle und Berichte](#protokolle-und-berichte)
+9. [Leerlauf- und Timeout-Schutz](#leerlauf-und-timeout-schutz)
+10. [Neustart und automatische Fortsetzung](#neustart-und-automatische-fortsetzung)
+11. [Exitcodes](#exitcodes)
+12. [Sicherheitshinweise](#sicherheitshinweise)
+13. [Fehlerbehebung](#fehlerbehebung)
+14. [Quellcode- und Release-Informationen](#quellcode-und-release-informationen)
+15. [Lizenz und Weiterverwendung](#lizenz-und-weiterverwendung)
+16. [Haftungshinweis](#haftungshinweis)
+
+---
+
+<a id="programmbeschreibung"></a>
+
+## 🔎 Programmbeschreibung
+
+**OneClick-Komplettreparatur** ist ein PowerShell-Programm für Microsoft Windows. Es prüft die Windows-Systembasis, erfasst installierte Programme, sucht nach Aktualisierungen und führt unterstützte Reparaturen oder abgesicherte Neuinstallationen aus.
+
+Benutzerbezogene Programme werden kontrolliert mit einem normalen Benutzertoken bearbeitet. Computerweit installierte Programme und die Hauptsteuerung laufen mit Administratorrechten.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="hauptfunktionen"></a>
+
+## ✨ Hauptfunktionen
+
+### 🖥️ System und Laufzeit
+
 - Start durch Doppelklick auf die PS1-Datei.
 - Sichere Übergabe von Windows PowerShell 5.1 an PowerShell 7.4 oder neuer.
 - Automatische Anforderung und Prüfung der Administratorrechte.
 - Verifizierte Prüfung und Aktualisierung von PowerShell 7.
+- Interner Selbsttest vor dem Reparaturlauf.
+- Sichere Pause und automatische Fortsetzung nach einem Neustart.
+
+### 🪟 Windows-Reparatur
+
 - Prüfung, Reparatur oder Bereitstellung von WinGet.
 - Prüfung und Reparatur der offiziellen WinGet-Standardquellen.
 - Erstellung eines Windows-Wiederherstellungspunktes, sofern möglich.
 - Bedarfsgesteuerte Prüfung des Windows-Komponentenspeichers mit DISM.
 - DISM-Reparatur nur bei nachgewiesenem reparierbarem Schaden.
 - SFC- und CHKDSK-Kontrolle nur nach erfolgreich bestätigter DISM-Reparatur.
+
+### 📦 Programme und Pakete
+
 - Inventarisierung installierter Programme aus Registry und WinGet.
 - Aktualisierung installierter Programme über WinGet.
 - Gezielte MSI-Reparatur bei erkanntem Beschädigungsverdacht.
@@ -74,202 +163,344 @@ mit Administratorrechten.
 - Paketweise Fehlerisolierung, damit andere Programme weiter geprüft werden.
 - Quarantäne fehlerhafter oder nicht sicher geprüfter WinGet-Pakete.
 - Nachkontrolle ausgeführter Updates, Reparaturen und Neuinstallationen.
-- Erkennung inaktiver oder hängender Installationsprozesse.
-- Kontrollierter Abbruch zugehöriger Prozessbäume.
 - Sichere Trennung von Benutzer- und Maschineninstallationen.
 - Prüfung beziehungsweise Erstellung von Desktop-Verknüpfungen.
-- Sichere Pause und automatische Fortsetzung nach einem Neustart.
+
+### 📊 Überwachung und Berichte
+
+- Erkennung inaktiver oder hängender Installationsprozesse.
+- Kontrollierter Abbruch zugehöriger Prozessbäume.
 - Abschlussbereinigung temporärer Daten.
-- Erstellung von CSV-Ergebnisbericht und TXT-Zusammenfassung.
-- Interner Selbsttest vor dem Reparaturlauf.
+- Erstellung eines CSV-Ergebnisberichts und einer TXT-Zusammenfassung.
 
-3. VORAUSSETZUNGEN
-------------------
-- Windows 10 ab Version 1809, Build 17763, oder Windows 11.
-- Auf ARM64-Systemen mindestens Windows 11, Build 22000.
-- Unterstützte Windows-Clientinstallation.
-- Benutzerkonto mit Administratorberechtigung.
-- Funktionierende Internetverbindung.
-- Zugriff auf den persönlichen Windows-Dokumenteordner.
-- Ausreichender freier Speicherplatz.
-- Keine parallel gestarteten Installationen oder Windows-Reparaturen.
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
 
-PowerShell 7 und WinGet werden durch das Programm geprüft und bei Bedarf über
-die vorgesehenen verifizierten Quellen bereitgestellt oder repariert.
+---
 
-4. EMPFOHLENER START
---------------------
-1. Speichern Sie die PS1-Datei auf einem lokalen Laufwerk.
-2. Schließen Sie andere Installationsprogramme.
-3. Doppelklicken Sie auf die PS1-Datei, um das Programm zu starten.
-4. Bestätigen Sie die Windows-Benutzerkontensteuerung.
-5. Lassen Sie das Programmfenster bis zum vollständigen Abschluss geöffnet.
-6. Starten Sie Windows neu, wenn das Programm dazu auffordert.
-7. Melden Sie sich danach wieder mit demselben Benutzerkonto an.
+<a id="voraussetzungen"></a>
 
-Alternativer Start aus einer PowerShell-Konsole:
+## ✅ Voraussetzungen
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
+| Voraussetzung | Beschreibung |
+|:---|:---|
+| **Betriebssystem** | Windows 10 ab Version 1809, Build 17763, oder Windows 11 |
+| **ARM64-Systeme** | Mindestens Windows 11, Build 22000 |
+| **Windows-Ausgabe** | Unterstützte Windows-Clientinstallation |
+| **Benutzerkonto** | Administratorberechtigung erforderlich |
+| **Internet** | Funktionierende Internetverbindung |
+| **Dateizugriff** | Zugriff auf den persönlichen Windows-Dokumenteordner |
+| **Speicherplatz** | Ausreichender freier Speicherplatz |
+| **Parallele Vorgänge** | Keine gleichzeitig laufenden Installationen oder Windows-Reparaturen |
 
-Unbeaufsichtigter Start ohne abschließende Tasteneingabe:
+PowerShell 7 und WinGet werden durch das Programm geprüft und bei Bedarf über die vorgesehenen verifizierten Quellen bereitgestellt oder repariert.
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1" -KeinePause
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
 
-Die Option "-ExecutionPolicy Bypass" gilt nur für den gestarteten
-PowerShell-Prozess und verändert nicht dauerhaft die Windows-Richtlinie.
+---
 
-5. ABLAUF DES PROGRAMMS
------------------------
-1. Prüfung von Windows, Architektur, Skriptpfad und Startumgebung.
-2. Anforderung und Nachkontrolle der Administratorrechte.
-3. Prüfung beziehungsweise Bereitstellung von PowerShell 7.4 oder neuer.
-4. Initialisierung der Protokollierung und Laufzeitordner.
-5. Ausführung des internen Selbsttests.
-6. Bereinigung alter Berichte und Prüfung von Neustartzuständen.
-7. Erstellung eines Wiederherstellungspunktes, sofern möglich.
-8. DISM-Prüfung und nur bei Bedarf DISM-Reparatur.
-9. SFC- und CHKDSK-Kontrolle nach bestätigter DISM-Reparatur.
-10. Sichere Pause und Fortsetzung bei notwendigem Neustart.
-11. Inventarisierung installierter Programme.
-12. Prüfung beziehungsweise Reparatur von WinGet und seinen Quellen.
-13. Aktualisierung benutzerbezogener Programme.
-14. Aktualisierung computerweit installierter Programme.
-15. Integritätsprüfung und Reparatur registrierter Programme.
-16. MSI- und WinGet-Reparaturen sowie abgesicherte Neuinstallationen.
-17. Isolierung einzelner Paketfehler und gegebenenfalls Quarantäne.
-18. Nachkontrolle aller ausgeführten Aktionen.
-19. Bereinigung der Arbeitsdaten.
-20. Erstellung der Abschlussberichte.
+<a id="datei-vor-dem-ersten-start-entsperren"></a>
 
-6. PROTOKOLLE UND BERICHTE
---------------------------
+## 🔓 Datei vor dem ersten Start entsperren
+
+Windows kann eine aus dem Internet heruntergeladene PowerShell-Datei blockieren. Vor dem ersten Start:
+
+1. Rechtsklick auf die heruntergeladene PS1-Datei.
+2. **Eigenschaften** öffnen.
+3. Im Reiter **Allgemein** unten den Bereich **Sicherheit** prüfen.
+4. Falls vorhanden, **Zulassen** aktivieren.
+5. **Übernehmen** und anschließend **OK** wählen.
+
+> [!NOTE]
+> Wird **Zulassen** nicht angezeigt, ist die Datei bereits entsperrt oder wurde von Windows nicht blockiert.
+
+> [!CAUTION]
+> Aktivieren Sie **Zulassen** nur, wenn Sie der Herkunft der Datei vertrauen.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="empfohlener-start"></a>
+
+## ▶️ Empfohlener Start
+
+1. Laden Sie Version 1.0.0 über den oben verlinkten offiziellen GitHub-Release herunter.
+2. Prüfen Sie den Quellcode und den SHA-256-Hash wie unter [Vor der Ausführung prüfen](#vor-der-ausfuehrung-pruefen) beschrieben.
+3. Speichern Sie die PS1-Datei auf einem lokalen Laufwerk.
+4. Schließen Sie andere Installationsprogramme.
+5. Entsperren Sie die Datei bei Bedarf wie oben beschrieben.
+6. Doppelklicken Sie auf die PS1-Datei.
+7. Bestätigen Sie die Windows-Benutzerkontensteuerung.
+8. Lassen Sie das Programmfenster bis zum vollständigen Abschluss geöffnet.
+9. Starten Sie Windows neu, wenn das Programm dazu auffordert.
+10. Melden Sie sich danach wieder mit demselben Benutzerkonto an.
+
+### Alternativer Start über PowerShell
+
+Wenn Sie die Repository-Datei `v1.0.0.ps1` verwenden:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1"
+```
+
+### Unbeaufsichtigter Start
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1" -KeinePause
+```
+
+> [!NOTE]
+> `-ExecutionPolicy Bypass` gilt nur für den gestarteten PowerShell-Prozess und verändert die Windows-Richtlinie nicht dauerhaft.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="ablauf-des-programms"></a>
+
+## ⚙️ Ablauf des Programms
+
+```text
+Start
+  │
+  ├─ 1.  Windows, Architektur, Skriptpfad und Startumgebung prüfen
+  ├─ 2.  Administratorrechte anfordern und kontrollieren
+  ├─ 3.  PowerShell 7.4 oder neuer prüfen beziehungsweise bereitstellen
+  ├─ 4.  Protokollierung und Laufzeitordner initialisieren
+  ├─ 5.  Internen Selbsttest ausführen
+  ├─ 6.  Alte Berichte bereinigen und Neustartzustände prüfen
+  ├─ 7.  Wiederherstellungspunkt erstellen, sofern möglich
+  ├─ 8.  DISM-Prüfung und nur bei Bedarf DISM-Reparatur durchführen
+  ├─ 9.  SFC und CHKDSK nach bestätigter DISM-Reparatur kontrollieren
+  ├─ 10. Bei notwendigem Neustart sicher pausieren und fortsetzen
+  ├─ 11. Installierte Programme inventarisieren
+  ├─ 12. WinGet und seine Quellen prüfen beziehungsweise reparieren
+  ├─ 13. Benutzerbezogene Programme aktualisieren
+  ├─ 14. Computerweit installierte Programme aktualisieren
+  ├─ 15. Registrierte Programme auf Integrität prüfen und reparieren
+  ├─ 16. MSI- und WinGet-Reparaturen sowie Neuinstallationen ausführen
+  ├─ 17. Einzelne Paketfehler isolieren und gegebenenfalls quarantänisieren
+  ├─ 18. Alle ausgeführten Aktionen nachkontrollieren
+  ├─ 19. Arbeitsdaten bereinigen
+  └─ 20. Abschlussberichte erstellen
+```
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="protokolle-und-berichte"></a>
+
+## 📁 Protokolle und Berichte
+
 Das Programm verwendet den Windows-Dokumenteordner des aktuellen Benutzers.
 
-Administrativer Laufzeitordner:
-  Dokumente\OneClick-ProgrammReparatur-Laufzeit
+| Bereich | Pfad |
+|:---|:---|
+| **Administrativer Laufzeitordner** | `Dokumente\OneClick-ProgrammReparatur-Laufzeit` |
+| **Benutzerbezogener Laufzeitordner** | `Dokumente\OneClick-ProgrammReparatur-Benutzer-Laufzeit` |
+| **Abschlussberichte des Hauptlaufs** | `Dokumente\OneClick-Reparaturberichte\Hauptlauf` |
+| **Abschlussberichte des Benutzerlaufs** | `Dokumente\OneClick-Reparaturberichte\Benutzerlauf` |
+| **WinGet-Sicherheitsquarantäne** | `Dokumente\OneClick-ProgrammReparatur-Quarantaene` |
 
-Benutzerbezogener Laufzeitordner:
-  Dokumente\OneClick-ProgrammReparatur-Benutzer-Laufzeit
+### Mögliche Abschlussberichte
 
-Abschlussberichte des Hauptlaufs:
-  Dokumente\OneClick-Reparaturberichte\Hauptlauf
+```text
+Ergebnis-JJJJMMTT-HHMMSS.csv
+Zusammenfassung-JJJJMMTT-HHMMSS.txt
+```
 
-Abschlussberichte des Benutzerlaufs:
-  Dokumente\OneClick-Reparaturberichte\Benutzerlauf
+Berichte, die älter als drei Tage sind, können durch die eingerichtete Aufbewahrungsfunktion in den Windows-Papierkorb verschoben werden.
 
-WinGet-Sicherheitsquarantäne:
-  Dokumente\OneClick-ProgrammReparatur-Quarantaene
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
 
-Mögliche Abschlussberichte:
-- Ergebnis-JJJJMMTT-HHMMSS.csv
-- Zusammenfassung-JJJJMMTT-HHMMSS.txt
+---
 
-Berichte, die älter als drei Tage sind, können durch die eingerichtete
-Aufbewahrungsfunktion in den Windows-Papierkorb verschoben werden.
+<a id="leerlauf-und-timeout-schutz"></a>
 
-7. LEERLAUF- UND TIMEOUT-SCHUTZ
--------------------------------
-Das Programm überwacht Installations- und Reparaturprozesse, Kindprozesse,
-Protokollaktivitäten und Downloads. Bei überschrittener Gesamtlaufzeit oder
-längerer nachgewiesener Inaktivität wird der betroffene Vorgang kontrolliert
-beendet und im Bericht erfasst.
+## ⏱️ Leerlauf- und Timeout-Schutz
 
-Ein einzelner Paketfehler verhindert nicht automatisch die Prüfung der übrigen
-Programme. Schwere Infrastruktur-, Phasen- oder Windows-Systemfehler können den
-Gesamtlauf weiterhin sicher abbrechen.
+Das Programm überwacht Installations- und Reparaturprozesse, zugehörige Kindprozesse, Protokollaktivitäten und laufende Downloads. Bei überschrittener Gesamtlaufzeit oder längerer nachgewiesener Inaktivität wird der betroffene Vorgang kontrolliert beendet und im Bericht erfasst.
 
-8. NEUSTART UND AUTOMATISCHE FORTSETZUNG
------------------------------------------
-Erfordert eine System- oder Reparaturaktion einen Neustart, pausiert das
-Programm weitere verändernde Aktionen. Es speichert einen geschützten
-Fortsetzungsstatus und registriert eine geplante Aufgabe.
+> [!NOTE]
+> Ein einzelner Paketfehler verhindert nicht automatisch die Prüfung der übrigen Programme. Schwere Infrastruktur-, Phasen- oder Windows-Systemfehler können den Gesamtlauf weiterhin sicher abbrechen.
 
-Die Fortsetzung wird nur akzeptiert, wenn der gespeicherte Status gültig ist
-und tatsächlich ein neuer Windows-Start stattgefunden hat.
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
 
-9. EXITCODES
-------------
-0
-  Erfolgreich ohne erkannte Warnungen abgeschlossen.
+---
 
-1
-  Schwerer Fehler oder nicht vollständig sicher abgeschlossener Lauf.
+<a id="neustart-und-automatische-fortsetzung"></a>
 
-2
-  Lauf abgeschlossen, jedoch mit Warnungen.
+## 🔄 Neustart und automatische Fortsetzung
 
-3010
-  Windows-Neustart erforderlich. Eine sichere Fortsetzung kann registriert sein.
+Erfordert eine System- oder Reparaturaktion einen Neustart, pausiert das Programm weitere verändernde Aktionen. Es speichert einen geschützten Fortsetzungsstatus und registriert eine geplante Aufgabe.
 
-Weitere interne Fehlercodes können bei frühen Start- oder Infrastrukturfehlern
-auftreten. Die genaue Ursache wird in der Konsole und in den Berichten erfasst.
+Die Fortsetzung wird nur akzeptiert, wenn der gespeicherte Status gültig ist und tatsächlich ein neuer Windows-Start stattgefunden hat.
 
-10. SICHERHEITSHINWEISE
------------------------
-- Sichern Sie wichtige persönliche Daten vor einer umfassenden Reparatur.
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="exitcodes"></a>
+
+## 🚦 Exitcodes
+
+| Exitcode | Status | Bedeutung |
+|---:|:---:|:---|
+| `0` | ✅ Erfolgreich | Ohne erkannte Warnungen abgeschlossen. |
+| `1` | ❌ Fehler | Schwerer Fehler oder nicht vollständig sicher abgeschlossener Lauf. |
+| `2` | ⚠️ Warnung | Lauf abgeschlossen, jedoch mit Warnungen. |
+| `3010` | 🔄 Neustart | Windows-Neustart erforderlich. Eine sichere Fortsetzung kann registriert sein. |
+
+Weitere interne Fehlercodes können bei frühen Start- oder Infrastrukturfehlern auftreten. Die genaue Ursache wird in der Konsole und in den Berichten erfasst.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="sicherheitshinweise"></a>
+
+## 🔐 Sicherheitshinweise
+
+> [!WARNING]
+> Sichern Sie wichtige persönliche Daten, bevor Sie eine umfassende Reparatur starten.
+
 - Das Programm verändert Windows-Komponenten und installierte Programme.
 - Verwenden Sie Tiefenreparaturen nur bewusst.
 - Schließen Sie das Programmfenster nicht während laufender Aktionen.
-- Schalten Sie den Computer während DISM, SFC, CHKDSK oder Installationen
-  nicht aus.
+- Schalten Sie den Computer während DISM, SFC, CHKDSK oder Installationen nicht aus.
 - Starten Sie nicht mehrere Programminstanzen gleichzeitig.
 - Prüfen Sie die Abschlussberichte auf Warnungen und fehlgeschlagene Aktionen.
 - Entfernen Sie Quarantänedaten nicht ungeprüft.
-- Netzwerk-, Signatur-, Hash- oder Quellenfehler führen zu einer sicheren
-  Auslassung, Quarantäne oder zum Abbruch der betroffenen Aktion.
+- Netzwerk-, Signatur-, Hash- oder Quellenfehler führen zu einer sicheren Auslassung, Quarantäne oder zum Abbruch der betroffenen Aktion.
 
-11. FEHLERBEHEBUNG
-------------------
-Problem: Das Programm startet nach dem Doppelklick nicht sichtbar.
-Lösung:
+Für die vertrauliche Meldung möglicher Sicherheitslücken beachten Sie die [Sicherheitsrichtlinie](.github/SECURITY.md).
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="fehlerbehebung"></a>
+
+## 🧰 Fehlerbehebung
+
+<details>
+<summary><strong>❓ Das Programm startet nach dem Doppelklick nicht sichtbar</strong></summary>
+
 - Speichern Sie die PS1-Datei auf einem lokalen Laufwerk.
 - Prüfen Sie in den Dateieigenschaften, ob Windows die Datei blockiert.
-- Starten Sie die Datei testweise über:
+- Starten Sie die Repository-Datei testweise über:
 
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\OneClick-Komplettreparatur-Release-v1.0.0.ps1"
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\v1.0.0.ps1"
+```
 
-Problem: Eine Installation scheint zu hängen.
-Lösung:
+</details>
+
+<details>
+<summary><strong>⏳ Eine Installation scheint zu hängen</strong></summary>
+
 - Warten Sie auf die integrierte Leerlaufüberwachung.
 - Starten Sie keinen zweiten Installer parallel.
 - Prüfen Sie danach die TXT-Zusammenfassung und den CSV-Bericht.
 
-Problem: WinGet kann nicht bereitgestellt oder repariert werden.
-Lösung:
+</details>
+
+<details>
+<summary><strong>📦 WinGet kann nicht bereitgestellt oder repariert werden</strong></summary>
+
 - Prüfen Sie Internetverbindung, Systemdatum und Systemzeit.
 - Installieren Sie ausstehende Windows-Updates.
 - Starten Sie Windows neu und führen Sie das Programm erneut aus.
 
-Problem: Ein Programm kann nicht automatisch repariert werden.
-Lösung:
+</details>
+
+<details>
+<summary><strong>🛠️ Ein Programm kann nicht automatisch repariert werden</strong></summary>
+
 - Prüfen Sie den Abschlussbericht und die Quarantäneangaben.
 - Verwenden Sie ausschließlich offizielle Herstellerquellen.
 - Deinstallieren Sie Programme mit wichtigen Benutzerdaten nicht unüberlegt.
 
-Problem: Das Programm endet mit Exitcode 3010.
-Lösung:
+</details>
+
+<details>
+<summary><strong>🔄 Das Programm endet mit Exitcode 3010</strong></summary>
+
 - Starten Sie Windows neu.
 - Melden Sie sich mit demselben Benutzerkonto an.
 - Lassen Sie die registrierte Fortsetzung vollständig abschließen.
 
-12. QUELLCODE-INFORMATIONEN
----------------------------
-Quelltextzeilen: 11432
-Dateigröße des ursprünglichen Skripts: 728686 Bytes
-SHA-256 des ursprünglichen Skripts:
-  C6ED1392CC08D7757359725AE0ED29F9AC5C1AB37EC7D6244957C8AEC5B37D86
+</details>
 
-Die Datei "Programmcode-OneClick-Komplettreparatur-Release-v1.0.0.txt" ist eine bytegenaue Kopie des bereitgestellten
-PowerShell-Skripts. Nur Dateiname und Dateiendung unterscheiden sich.
+### Weitere Hilfe
 
-13. HAFTUNGSHINWEIS
--------------------
-Die Ausführung erfolgt auf eigene Verantwortung. Trotz interner Sicherheits-,
-Nachkontroll-, Isolierungs- und Abbruchmechanismen können beschädigte
-Windows-Installationen, Drittanbieter-Installer, Sicherheitssoftware,
-Netzwerkausfälle oder herstellerspezifische Besonderheiten zu unvollständigen
-Reparaturen führen. Prüfen Sie immer die erzeugten Abschlussberichte.
+- [🐞 Fehler oder Funktionswunsch melden](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/issues/new/choose)
+- [💬 Fragen in Discussions stellen](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/discussions)
+- [🆘 Support-Hinweise lesen](.github/SUPPORT.md)
 
-------------------------------------------------------------------------------------------------------------
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
 
-<img width="3839" height="2069" alt="Beispiel 1" src="https://github.com/user-attachments/assets/dc41a2c5-adfe-4481-930b-7217ddc518c4" />
+---
+
+<a id="quellcode-und-release-informationen"></a>
+
+## 🧾 Quellcode- und Release-Informationen
+
+| Eigenschaft | Wert |
+|:---|---:|
+| **Quelltextzeilen der Repository-Datei** | `11.432` |
+| **Dateigröße der Repository-Datei** | `724.142 Bytes` |
+
+Der vollständige Repository-Quellcode der Version 1.0.0 liegt in [`v1.0.0.ps1`](v1.0.0.ps1). Der für Anwender empfohlene Download erfolgt über das unveränderte Asset des [GitHub-Releases 1.0.0](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases/tag/repair-tool-v.1.0.0).
+
+Die Repository-Datei `v1.0.0.ps1` ist in der CI zusätzlich über ihren Git-Blob geschützt. Änderungen am Programmcode sollen nicht in Version 1.0.0 zurückgeschrieben, sondern als neue Version veröffentlicht werden.
+
+
+### 🔏 Zukünftige Releases und Codesignatur
+
+Für zukünftige Versionen kann zusätzlich eine **Authenticode-Codesignatur** mit einem geeigneten Code-Signing-Zertifikat verwendet werden. Eine bereits veröffentlichte Datei wie Version 1.0.0 wird dafür **nicht nachträglich verändert oder signiert**, weil dies den veröffentlichten Dateihash und den unveränderlichen Release-Snapshot ändern würde.
+
+Eine Codesignatur wäre eine zusätzliche Herkunfts- und Integritätsprüfung; sie ersetzt weder die Einsicht in den Quellcode noch die SHA-256-Prüfung des jeweiligen Release-Assets.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="lizenz-und-weiterverwendung"></a>
+
+## ⚖️ Lizenz und Weiterverwendung
+
+Dieses Projekt steht unter der [Apache License 2.0](LICENSE). Andere dürfen den Quellcode verwenden, bearbeiten, weiterentwickeln und unter Einhaltung der Lizenzbedingungen weiterverbreiten.
+
+Die Datei [NOTICE](NOTICE) enthält die Attribution zur ursprünglichen Arbeit. Bei der Weiterverbreitung abgeleiteter Arbeiten muss diese Attribution gemäß Abschnitt 4(d) der Apache License 2.0 erhalten bleiben. Damit bleibt sichtbar, dass die ursprüngliche Implementierung und Inspiration aus der veröffentlichten Hauptdatei [`v1.0.0.ps1`](v1.0.0.ps1) des Projekts `Skeiver/OneClick-Komplettreparatur-fuer-Windows` stammt.
+
+> [!IMPORTANT]
+> Eigene Weiterentwicklungen sollen als eigene Änderungen gekennzeichnet werden. Die bereits veröffentlichte `v1.0.0.ps1` bleibt unverändert; neue Programmstände sollen als neue Versionsdateien veröffentlicht werden.
+
+<div align="right">[⬆️ Nach oben](#oneclick-komplettreparatur)</div>
+
+---
+
+<a id="haftungshinweis"></a>
+
+## ⚠️ Haftungshinweis
+
+Die Ausführung erfolgt auf eigene Verantwortung. Trotz interner Sicherheits-, Nachkontroll-, Isolierungs- und Abbruchmechanismen können beschädigte Windows-Installationen, Drittanbieter-Installer, Sicherheitssoftware, Netzwerkausfälle oder herstellerspezifische Besonderheiten zu unvollständigen Reparaturen führen.
+
+> [!IMPORTANT]
+> **Prüfen Sie nach jedem Programmlauf die erzeugten Abschlussberichte.**
+
+---
+
+<div align="center">
+
+### 🛠️ OneClick-Komplettreparatur
+
+**Version 1.0.0 · Programmstand 01.08.2026**
+
+[📦 Releases](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/releases) · [🐞 Issues](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/issues/new/choose) · [💬 Discussions](https://github.com/Skeiver/OneClick-Komplettreparatur-fuer-Windows/discussions) · [🔐 Security](.github/SECURITY.md) · [⚖️ Lizenz](LICENSE) · [🧾 Attribution](NOTICE)
+
+[⬆️ Zurück zum Anfang](#oneclick-komplettreparatur)
+
+</div>

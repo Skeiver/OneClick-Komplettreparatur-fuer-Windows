@@ -1,0 +1,48 @@
+name: Verbesserungsvorschlag
+description: Eine neue Funktion oder Verbesserung vorschlagen.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für den Vorschlag. Beschreibe möglichst das Problem und den gewünschten Nutzen, nicht nur eine technische Lösung.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Ausgangsproblem
+      description: Welches konkrete Problem oder welcher fehlende Ablauf soll verbessert werden?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Gewünschte Verbesserung
+      description: Wie sollte sich das Programm oder das Repository künftig verhalten?
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Nutzen
+      description: Für welche Benutzer oder Situationen wäre die Änderung hilfreich?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativen
+      description: Gibt es bereits einen Workaround oder andere mögliche Lösungen?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checkliste
+      options:
+        - label: Ich habe geprüft, ob es bereits einen ähnlichen Vorschlag gibt.
+          required: true
+        - label: Der Vorschlag enthält keine vertraulichen oder personenbezogenen Daten.
+          required: true

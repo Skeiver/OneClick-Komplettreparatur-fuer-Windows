@@ -1,0 +1,90 @@
+name: Fehlerbericht
+description: Einen reproduzierbaren Fehler in der OneClick-Komplettreparatur melden.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für den Fehlerbericht. Bitte keine Passwörter, Tokens oder ungeprüften vollständigen Protokolle veröffentlichen.
+
+  - type: input
+    id: version
+    attributes:
+      label: Programmversion
+      description: Welche Version der OneClick-Komplettreparatur verwendest du?
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows-Version und Build
+      placeholder: "Windows 11 24H2, Build ..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Systemarchitektur
+      options:
+        - x64
+        - ARM64
+        - Andere / unbekannt
+    validations:
+      required: true
+
+  - type: input
+    id: powershell
+    attributes:
+      label: PowerShell-Version
+      description: Falls bekannt, gib die verwendete PowerShell-Version an.
+      placeholder: "PowerShell 7.x"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Fehlerbeschreibung
+      description: Was ist passiert?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: Beschreibe die Schritte möglichst genau und in der richtigen Reihenfolge.
+      placeholder: |
+        1. Programm starten
+        2. ...
+        3. Fehler tritt auf
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+      description: Was sollte stattdessen passieren?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevante, anonymisierte Protokollauszüge
+      description: Nur die erforderlichen Zeilen einfügen. Persönliche Pfade, Namen, Tokens und andere vertrauliche Daten vorher entfernen.
+      render: text
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checkliste
+      options:
+        - label: Ich habe geprüft, ob bereits ein passendes Issue existiert.
+          required: true
+        - label: Ich habe vertrauliche oder personenbezogene Daten aus den Angaben entfernt.
+          required: true
+        - label: Dies ist kein vertraulich zu behandelnder Sicherheitsbericht.
+          required: true

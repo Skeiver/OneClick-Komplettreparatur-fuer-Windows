@@ -1,0 +1,190 @@
+name: Repository- und PowerShell-Prüfung
+
+on:
+  push:
+    branches:
+      - OneClick-Komplettreparatur
+  pull_request:
+    branches:
+      - OneClick-Komplettreparatur
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Release-Schutz, Struktur und PowerShell-Syntax prüfen
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v7.0.1
+
+      - name: Veröffentlichte v1.0.0 unverändert bestätigen
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $expectedBlob = '21cf6bdd1bf54b5d9266c31f4466c1e2ce6c60a8'
+          $actualBlob = (git rev-parse 'HEAD:v1.0.0.ps1').Trim()
+
+          if ($actualBlob -ne $expectedBlob) {
+            throw "Released file v1.0.0.ps1 was modified. Expected Git blob $expectedBlob but found $actualBlob. Publish program changes as a new version instead."
+          }
+
+          Write-Host "Released file v1.0.0.ps1 is unchanged ($actualBlob)."
+
+      - name: Repository-Struktur prüfen
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $requiredFiles = @(
+            'README.md',
+            'CHANGELOG.md',
+            'LICENSE',
+            'NOTICE',
+            'v1.0.0.ps1',
+            '.github/CODEOWNERS',
+            '.github/CODE_OF_CONDUCT.md',
+            '.github/CONTRIBUTING.md',
+            '.github/PULL_REQUEST_TEMPLATE.md',
+            '.github/SECURITY.md',
+            '.github/SUPPORT.md',
+            '.github/dependabot.yml',
+            '.github/ISSUE_TEMPLATE/bug_report.yml',
+            '.github/ISSUE_TEMPLATE/feature_request.yml',
+            '.github/ISSUE_TEMPLATE/config.yml'
+          )
+
+          $missing = @($requiredFiles | Where-Object { -not (Test-Path -LiteralPath (Join-Path $PWD $_) -PathType Leaf) })
+          if ($missing.Count -gt 0) {
+            $missing | ForEach-Object { Write-Host "Missing required repository file: $_" }
+            throw 'Repository structure validation failed.'
+          }
+
+          Write-Host 'Repository structure validation passed.'
+
+      - name: Lizenz und Attribution prüfen
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $license = Get-Content -LiteralPath (Join-Path $PWD 'LICENSE') -Raw
+          $notice = Get-Content -LiteralPath (Join-Path $PWD 'NOTICE') -Raw
+
+          if ($license -notmatch 'Apache License' -or $license -notmatch 'Version 2\.0') {
+            throw 'LICENSE does not contain the expected Apache License 2.0 text.'
+          }
+
+          $requiredNoticeText = @(
+            'Skeiver/OneClick-Komplettreparatur-fuer-Windows',
+            'v1.0.0.ps1',
+            'Apache License, Version 2.0'
+          )
+
+          foreach ($requiredText in $requiredNoticeText) {
+            if (-not $notice.Contains($requiredText)) {
+              throw "NOTICE attribution is incomplete. Missing: $requiredText"
+            }
+          }
+
+          Write-Host 'License and attribution validation passed.'
+
+      - name: PowerShell-Syntax mit Windows PowerShell 5.1 prüfen
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = @(Get-ChildItem -LiteralPath $PWD -Filter '*.ps1' -File -Recurse)
+          if ($files.Count -eq 0) {
+            throw 'No PowerShell scripts were found.'
+          }
+
+          $hasErrors = $false
+          foreach ($file in $files) {
+            $tokens = $null
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $file.FullName,
+              [ref]$tokens,
+              [ref]$parseErrors
+            )
+
+            foreach ($parseError in @($parseErrors)) {
+              $hasErrors = $true
+              Write-Host ("{0}:{1}:{2}: {3}" -f $file.FullName, $parseError.Extent.StartLineNumber, $parseError.Extent.StartColumnNumber, $parseError.Message)
+            }
+          }
+
+          if ($hasErrors) {
+            throw 'Windows PowerShell 5.1 syntax validation failed.'
+          }
+
+          Write-Host ("Successfully parsed {0} PowerShell script(s) with Windows PowerShell {1}." -f $files.Count, $PSVersionTable.PSVersion)
+
+      - name: PowerShell-Syntax mit PowerShell 7 prüfen
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = @(Get-ChildItem -LiteralPath $PWD -Filter '*.ps1' -File -Recurse)
+          if ($files.Count -eq 0) {
+            throw 'No PowerShell scripts were found.'
+          }
+
+          $hasErrors = $false
+          foreach ($file in $files) {
+            $tokens = $null
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $file.FullName,
+              [ref]$tokens,
+              [ref]$parseErrors
+            )
+
+            foreach ($parseError in @($parseErrors)) {
+              $hasErrors = $true
+              Write-Host ("{0}:{1}:{2}: {3}" -f $file.FullName, $parseError.Extent.StartLineNumber, $parseError.Extent.StartColumnNumber, $parseError.Message)
+            }
+          }
+
+          if ($hasErrors) {
+            throw 'PowerShell 7 syntax validation failed.'
+          }
+
+          Write-Host ("Successfully parsed {0} PowerShell script(s) with PowerShell {1}." -f $files.Count, $PSVersionTable.PSVersion)
+
+      - name: Lokale README-Dateiverweise prüfen
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $readmePath = Join-Path $PWD 'README.md'
+          if (-not (Test-Path -LiteralPath $readmePath -PathType Leaf)) {
+            throw 'README.md was not found.'
+          }
+
+          $readme = Get-Content -LiteralPath $readmePath -Raw
+          $references = @(
+            [regex]::Matches($readme, '`([^`]+\.(?:ps1|txt))`') |
+              ForEach-Object { $_.Groups[1].Value.Trim() } |
+              Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+              Sort-Object -Unique
+          )
+
+          $missing = New-Object 'System.Collections.Generic.List[string]'
+          foreach ($reference in $references) {
+            $candidate = $reference -replace '^[.]\\', ''
+            $candidate = $candidate -replace '/', [IO.Path]::DirectorySeparatorChar
+            $candidate = $candidate -replace '\\', [IO.Path]::DirectorySeparatorChar
+            $fullPath = Join-Path $PWD $candidate
+
+            if (-not (Test-Path -LiteralPath $fullPath -PathType Leaf)) {
+              $missing.Add($reference) | Out-Null
+            }
+          }
+
+          if ($missing.Count -gt 0) {
+            Write-Host 'README references files that are not present in the repository:'
+            $missing | ForEach-Object { Write-Host " - $_" }
+            throw 'README file reference validation failed.'
+          }
+
+          Write-Host ("README file reference validation passed for {0} referenced file(s)." -f $references.Count)
